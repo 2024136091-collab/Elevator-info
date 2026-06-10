@@ -278,6 +278,7 @@ flutter analyze               # 정적 분석 (error 0건)
 | `_service` 접근 불가 | Presentation에서 private 메서드 호출 시도 | `SearchNotifier`에 `groupByBuilding()` 메서드 노출 |
 | `filterByRegionAndType` 오류 | 카테고리 필터 추가 후 메서드 시그니처 불일치 | `filterByAll(region, type, category)`로 통합 |
 | 중복 폴더 문제 | `lib/screens/`와 `lib/presentation/screens/` 공존 | 구버전 `lib/screens/` 삭제, 4레이어 구조로 일원화 |
+| `latlong2` URI 오류 | 라이브러리 파일명이 `latlong2.dart`가 아닌 `latlong.dart` | 임포트를 `package:latlong2/latlong.dart`로 수정 |
 
 ---
 
