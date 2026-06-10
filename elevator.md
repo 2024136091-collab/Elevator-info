@@ -24,14 +24,12 @@ style: |
 
 ---
 
-## 한 줄 소개
+## 비전
 
-> 공공데이터를 활용해 승강기 설치·점검·위치 정보를
-> **한 곳에서 빠르게 조회하는 Flutter 앱**
+> **승강기 안전 정보를 누구나 손 안에서 빠르게 확인할 수 있는 세상**
 
-- 플랫폼: Flutter Web ✅ · Android / iOS (추후 빌드 예정)
-- 데이터: 국가승강기정보센터 공공 API 구조 기반
-- 주요 기능: 검색 · 지역 필터 · 점검 이력 · 즐겨찾기 · 스마트 검색
+대한민국 승강기 **80만 대 이상** — 하지만 정보는 PC 전용 웹에만 존재합니다.
+공공 API + Flutter로 이 정보를 모바일·웹에서 누구든 즉시 조회할 수 있게 합니다.
 
 ---
 
@@ -43,6 +41,31 @@ style: |
 | 모바일 미지원 | 기존 서비스는 PC 위주 |
 | 검색 불편 | 건물명·호기 번호로 빠른 검색 불가 |
 | **Flutter 앱** ✅ | 공공 API + 모바일 UI로 한 번에 해결 |
+
+---
+
+## WBS — 개발 일정
+
+| 주차 | 작업 | 상태 |
+|---|---|---|
+| 9주차 | 요구사항 분석 · 기획 | ✅ |
+| 10주차 | 아키텍처 설계 · 환경 구성 | ✅ |
+| 11주차 | 핵심 기능 구현 (검색·필터·즐겨찾기) | ✅ |
+| 12주차 | 추가 기능 · 발표 준비 · 문서화 | ✅ |
+| 13주차 | 실제 API 연동 · Android·iOS 빌드 | 🔄 |
+
+---
+
+## 활용 방안 및 기대 효과
+
+| 대상 | 활용 방안 |
+|---|---|
+| 건물 관리자 | 담당 건물 승강기 점검 이력 즉시 확인 |
+| 입주민 | 아파트 승강기 운행 상태 실시간 조회 |
+| 안전 점검원 | 현장에서 모바일로 승강기 정보 조회 |
+| 민원 담당자 | 민원 접수 시 승강기 번호로 빠른 검색 |
+
+> 향후 실제 API 연동 시 **80만 대** 전체 승강기 정보 실시간 제공 가능
 
 ---
 
@@ -196,6 +219,85 @@ final searchProvider =
 
 ---
 
+## 개발환경 설정
+
+| 항목 | 내용 |
+|---|---|
+| Flutter SDK | 3.41.9 stable |
+| 언어 | Dart (Flutter 내장) |
+| 편집기 | VS Code |
+| 버전 관리 | Git + GitHub |
+| 빌드 대상 | Web (Chrome) |
+
+```bash
+flutter config --enable-web   # Web 지원 활성화
+flutter pub get               # 패키지 설치
+flutter run -d web-server     # 디버그 실행
+flutter analyze               # 정적 분석 (error 0건)
+```
+
+---
+
+## 빌드 및 배포
+
+```
+소스 코드 → flutter build web --release → build/web/ → GitHub Pages
+```
+
+| 단계 | 명령 / 방법 |
+|---|---|
+| Release 빌드 | `flutter build web --release` |
+| 로컬 확인 | `python -m http.server 8081` |
+| 발표자료 변환 | `npx @marp-team/marp-cli elevator.md -o index.html` |
+| 배포 | `git push` → GitHub Pages 자동 반영 |
+
+**배포 URL**: `https://2024136091-collab.github.io`
+
+---
+
+## ADR — 주요 설계 결정
+
+| ADR | 결정 | 근거 |
+|---|---|---|
+| 001 | **4레이어 아키텍처** 채택 | API 교체 시 Data 레이어만 수정, 나머지 불변 |
+| 002 | **Riverpod** 상태 관리 선택 | AsyncValue로 로딩·에러·데이터 3상태 일원화 |
+| 003 | **더미 데이터 우선** 개발 | API 인증키 없이 전체 기능 개발·테스트 가능 |
+
+> 전체 ADR: `docs/adr/` 폴더에 기록 (GitHub 저장소)
+
+---
+
+## 구현 시행착오
+
+| 문제 | 원인 | 해결 |
+|---|---|---|
+| Marp 렌더링 오류 | 코드 블록 내 예상치 못한 파싱 | 코드 블록 → 표(table)로 교체 |
+| `_service` 접근 불가 | Presentation에서 private 메서드 호출 시도 | `SearchNotifier`에 `groupByBuilding()` 메서드 노출 |
+| `filterByRegionAndType` 오류 | 카테고리 필터 추가 후 메서드 시그니처 불일치 | `filterByAll(region, type, category)`로 통합 |
+| 중복 폴더 문제 | `lib/screens/`와 `lib/presentation/screens/` 공존 | 구버전 `lib/screens/` 삭제, 4레이어 구조로 일원화 |
+
+---
+
+## 코드 품질 및 테스트
+
+**정적 분석**
+```bash
+flutter analyze   # error 0건
+```
+
+**단위 테스트** (`test/widget_test.dart`)
+```dart
+testWidgets('홈 화면 렌더링 테스트', (tester) async {
+  await tester.pumpWidget(ProviderScope(child: ElevatorApp()));
+  expect(find.text('승강기 정보검색'), findsOneWidget);
+  expect(find.byIcon(Icons.search), findsOneWidget);
+});
+```
+
+**GitHub 커밋**: 기능별 단계적 커밋으로 변경 이력 관리
+
+---
+
 ## 기술 선택 근거
 
 | 기술 | 선택 이유 |
@@ -231,9 +333,20 @@ final searchProvider =
 
 ---
 
+## 시연 데모 (30초 시나리오)
+
+1. **홈 화면** — "신구대학교" 검색
+2. **검색 결과** — 건물별 그룹 확인 · 지역 필터("경기·인천") 적용
+3. **상세 정보** — 승강기 번호·점검이력 확인 · 즐겨찾기 등록
+4. **스마트 검색** — "오래된 승강기 찾아줘" 입력 → 결과 확인
+
+> "국승정 번호 2018-399로 검색하면 실제 휴먼시아아파트가 나옵니다"
+
+---
+
 ## Q&A
 
-> 설계 결정마다 이유를 말할 수 있습니다.
+> ADR 3건 · 아키텍처 · 빌드 과정에 대해 답변 준비되어 있습니다.
 
 ---
 
