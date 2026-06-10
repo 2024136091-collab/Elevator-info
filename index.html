@@ -254,7 +254,7 @@ li { color: #eaeaea; }
 </tr>
 <tr>
 <td>건물 유형 필터</td>
-<td>학교·병원·아파트·업체 등 유형별 분류</td>
+<td>학교·병원·오피스·상업시설·아파트 + 업체 전용 필터</td>
 </tr>
 <tr>
 <td>건물별 그룹핑</td>
@@ -451,7 +451,7 @@ li { color: #eaeaea; }
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Elevator</span> </span>{
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> id;               <span class="hljs-comment">// 국승정 번호 (XXXX-XXX)</span>
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> buildingName;
-  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> buildingCategory; <span class="hljs-comment">// 학교·아파트·오피스·상업시설·병원</span>
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> buildingCategory; <span class="hljs-comment">// 학교·아파트·오피스·상업시설·병원 (업체=아파트 제외 필터)</span>
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> address;
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> type;             <span class="hljs-comment">// 승객용·에스컬레이터·수직형리프트</span>
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">int</span>    installYear;

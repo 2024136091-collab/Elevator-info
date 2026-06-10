@@ -76,7 +76,7 @@ style: |
 | 승강기 검색 | 건물명·주소·승강기 번호로 검색 |
 | **스마트 자연어 검색** | 키워드 규칙 기반으로 문장형 질의 해석·검색 |
 | 지역 필터 | 서울·경기·강원 등 권역별 필터링 |
-| 건물 유형 필터 | 학교·병원·아파트·업체 등 유형별 분류 |
+| 건물 유형 필터 | 학교·병원·오피스·상업시설·아파트 + 업체 전용 필터 |
 | 건물별 그룹핑 | 검색 결과를 건물 단위로 묶어 표시 |
 | 점검 이력 조회 | 최근 점검 날짜·결과·담당자 확인 |
 | 즐겨찾기 | 자주 사용하는 승강기 로컬 저장 |
@@ -142,7 +142,7 @@ lib/
 class Elevator {
   final String id;               // 국승정 번호 (XXXX-XXX)
   final String buildingName;
-  final String buildingCategory; // 학교·아파트·오피스·상업시설·병원
+  final String buildingCategory; // 학교·아파트·오피스·상업시설·병원 (업체=아파트 제외 필터)
   final String address;
   final String type;             // 승객용·에스컬레이터·수직형리프트
   final int    installYear;
