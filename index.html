@@ -394,7 +394,8 @@ li { color: #eaeaea; }
 }
 
 <span class="hljs-keyword">final</span> searchProvider =
-    StateNotifierProvider&lt;SearchNotifier, ...&gt;(...);
+    StateNotifierProvider&lt;SearchNotifier,
+        AsyncValue&lt;<span class="hljs-built_in">List</span>&lt;Elevator&gt;&gt;&gt;((ref) =&gt; SearchNotifier(...));
 </code></pre>
 <blockquote>
 <p><code>AsyncValue</code> — 로딩·에러·데이터 상태를 한 타입으로 처리</p>
@@ -472,7 +473,7 @@ li { color: #eaeaea; }
 <tbody>
 <tr>
 <td>홈</td>
-<td>검색창, AI 검색 진입 버튼, 최근 조회</td>
+<td>검색창, 스마트 검색 진입 버튼, 최근 조회</td>
 </tr>
 <tr>
 <td><strong>스마트 검색</strong></td>

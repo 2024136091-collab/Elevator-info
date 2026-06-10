@@ -150,7 +150,8 @@ class SearchNotifier
 }
 
 final searchProvider =
-    StateNotifierProvider<SearchNotifier, ...>(...);
+    StateNotifierProvider<SearchNotifier,
+        AsyncValue<List<Elevator>>>((ref) => SearchNotifier(...));
 ```
 
 > `AsyncValue` — 로딩·에러·데이터 상태를 한 타입으로 처리
@@ -187,7 +188,7 @@ final searchProvider =
 
 | 화면 | 주요 기능 |
 |---|---|
-| 홈 | 검색창, AI 검색 진입 버튼, 최근 조회 |
+| 홈 | 검색창, 스마트 검색 진입 버튼, 최근 조회 |
 | **스마트 검색** | 문장형 입력, 예시 칩, 키워드 분석 결과 배너 |
 | 검색 결과 | 건물별 그룹핑, 지역·유형·종류 3단 필터 |
 | 상세 정보 | 기본정보·제원·점검이력, 즐겨찾기 토글 |
