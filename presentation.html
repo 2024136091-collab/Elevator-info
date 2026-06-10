@@ -265,6 +265,10 @@ li { color: #eaeaea; }
 <td>최근 점검 날짜·결과·담당자 확인</td>
 </tr>
 <tr>
+<td><strong>위치 지도 조회</strong></td>
+<td>OpenStreetMap 기반 건물 위치 지도 표시</td>
+</tr>
+<tr>
 <td>즐겨찾기</td>
 <td>자주 사용하는 승강기 로컬 저장</td>
 </tr>
@@ -459,6 +463,8 @@ li { color: #eaeaea; }
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">int</span>    capacity;         <span class="hljs-comment">// 에스컬레이터는 0</span>
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> lastInspectedAt;
   <span class="hljs-keyword">final</span> <span class="hljs-built_in">bool</span>   isOperating;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">double?</span> lat;             <span class="hljs-comment">// 위도 (OpenStreetMap 마커)</span>
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">double?</span> lng;             <span class="hljs-comment">// 경도</span>
 
   <span class="hljs-built_in">String</span> <span class="hljs-keyword">get</span> region { <span class="hljs-comment">/* 번호 앞자리로 지역 자동 판별 */</span> }
 }
@@ -588,7 +594,7 @@ li { color: #eaeaea; }
 </tr>
 <tr>
 <td>상세 정보</td>
-<td>기본정보·제원·점검이력, 즐겨찾기 토글</td>
+<td>기본정보·제원·점검이력·위치 지도, 즐겨찾기 토글</td>
 </tr>
 <tr>
 <td>즐겨찾기</td>
@@ -878,6 +884,10 @@ li { color: #eaeaea; }
 <td>즐겨찾기처럼 단순 구조는 별도 DB 없이 메모리 저장으로 충분</td>
 </tr>
 <tr>
+<td>flutter_map</td>
+<td>API 키 없이 OpenStreetMap 타일로 Web·모바일 지도 표시 가능</td>
+</tr>
+<tr>
 <td>Dio (예정)</td>
 <td><code>Interceptor</code>로 API 키 헤더 자동 주입, 재시도 로직 중앙 관리</td>
 </tr>
@@ -914,7 +924,7 @@ li { color: #eaeaea; }
 <li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/2705.svg" data-marp-twemoji=""/> 건물별 그룹핑 표시</li>
 <li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/2705.svg" data-marp-twemoji=""/> <strong>스마트 자연어 검색 기능</strong> 구현 (규칙 기반 키워드 분석)</li>
 <li><img class="emoji" draggable="false" alt="🔄" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/1f504.svg" data-marp-twemoji=""/> 실제 공공 API 연동 진행 중</li>
-<li><img class="emoji" draggable="false" alt="⬜" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/2b1c.svg" data-marp-twemoji=""/> 지도 위치 조회</li>
+<li><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/2705.svg" data-marp-twemoji=""/> <strong>위치 지도 조회</strong> 구현 (flutter_map + OpenStreetMap, 핀 마커)</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-background-color="#1a1a2e" data-color="#eaeaea" data-theme="default" data-style="h1 { color: #e94560; }
@@ -940,7 +950,7 @@ li { color: #eaeaea; }
 <ol>
 <li>실제 국가승강기정보센터 API 연동 (<code>ApiRepository</code> 완성)</li>
 <li>Dio HTTP 클라이언트 적용 및 API 키 연동</li>
-<li>지도 위치 조회 구현 (Google Maps)</li>
+<li>Android·iOS 네이티브 빌드 및 테스트</li>
 <li>UI 디자인 다듬기</li>
 </ol>
 </section>
@@ -967,7 +977,7 @@ li { color: #eaeaea; }
 <ol>
 <li><strong>홈 화면</strong> — &quot;신구대학교&quot; 검색</li>
 <li><strong>검색 결과</strong> — 건물별 그룹 확인 · 지역 필터(&quot;경기·인천&quot;) 적용</li>
-<li><strong>상세 정보</strong> — 승강기 번호·점검이력 확인 · 즐겨찾기 등록</li>
+<li><strong>상세 정보</strong> — 승강기 번호·점검이력·위치 지도 확인 · 즐겨찾기 등록</li>
 <li><strong>스마트 검색</strong> — &quot;오래된 승강기 찾아줘&quot; 입력 → 결과 확인</li>
 </ol>
 <blockquote>

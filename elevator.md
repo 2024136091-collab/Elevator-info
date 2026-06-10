@@ -79,6 +79,7 @@ style: |
 | 건물 유형 필터 | 학교·병원·오피스·상업시설·아파트 + 업체 전용 필터 |
 | 건물별 그룹핑 | 검색 결과를 건물 단위로 묶어 표시 |
 | 점검 이력 조회 | 최근 점검 날짜·결과·담당자 확인 |
+| **위치 지도 조회** | OpenStreetMap 기반 건물 위치 지도 표시 |
 | 즐겨찾기 | 자주 사용하는 승강기 로컬 저장 |
 
 ---
@@ -150,6 +151,8 @@ class Elevator {
   final int    capacity;         // 에스컬레이터는 0
   final String lastInspectedAt;
   final bool   isOperating;
+  final double? lat;             // 위도 (OpenStreetMap 마커)
+  final double? lng;             // 경도
 
   String get region { /* 번호 앞자리로 지역 자동 판별 */ }
 }
@@ -214,7 +217,7 @@ final searchProvider =
 | 홈 | 검색창, 스마트 검색 진입 버튼, 최근 조회 |
 | **스마트 검색** | 문장형 입력, 예시 칩, 키워드 분석 결과 배너 |
 | 검색 결과 | 건물별 그룹핑, 지역·유형·종류 3단 필터 |
-| 상세 정보 | 기본정보·제원·점검이력, 즐겨찾기 토글 |
+| 상세 정보 | 기본정보·제원·점검이력·위치 지도, 즐겨찾기 토글 |
 | 즐겨찾기 | 저장된 목록, 해제 기능 |
 
 ---
@@ -305,6 +308,7 @@ testWidgets('홈 화면 렌더링 테스트', (tester) async {
 | Flutter | Android·iOS·Web 단일 코드베이스, Web 빌드 완료 |
 | Riverpod | `AsyncValue`로 로딩·에러·데이터 상태 일원화, Provider 전역 오염 없음 |
 | LocalRepository | 즐겨찾기처럼 단순 구조는 별도 DB 없이 메모리 저장으로 충분 |
+| flutter_map | API 키 없이 OpenStreetMap 타일로 Web·모바일 지도 표시 가능 |
 | Dio (예정) | `Interceptor`로 API 키 헤더 자동 주입, 재시도 로직 중앙 관리 |
 
 ---
@@ -320,7 +324,7 @@ testWidgets('홈 화면 렌더링 테스트', (tester) async {
 - ✅ 건물별 그룹핑 표시
 - ✅ **스마트 자연어 검색 기능** 구현 (규칙 기반 키워드 분석)
 - 🔄 실제 공공 API 연동 진행 중
-- ⬜ 지도 위치 조회
+- ✅ **위치 지도 조회** 구현 (flutter_map + OpenStreetMap, 핀 마커)
 
 ---
 
@@ -328,7 +332,7 @@ testWidgets('홈 화면 렌더링 테스트', (tester) async {
 
 1. 실제 국가승강기정보센터 API 연동 (`ApiRepository` 완성)
 2. Dio HTTP 클라이언트 적용 및 API 키 연동
-3. 지도 위치 조회 구현 (Google Maps)
+3. Android·iOS 네이티브 빌드 및 테스트
 4. UI 디자인 다듬기
 
 ---
@@ -337,7 +341,7 @@ testWidgets('홈 화면 렌더링 테스트', (tester) async {
 
 1. **홈 화면** — "신구대학교" 검색
 2. **검색 결과** — 건물별 그룹 확인 · 지역 필터("경기·인천") 적용
-3. **상세 정보** — 승강기 번호·점검이력 확인 · 즐겨찾기 등록
+3. **상세 정보** — 승강기 번호·점검이력·위치 지도 확인 · 즐겨찾기 등록
 4. **스마트 검색** — "오래된 승강기 찾아줘" 입력 → 결과 확인
 
 > "국승정 번호 2018-399로 검색하면 실제 휴먼시아아파트가 나옵니다"
