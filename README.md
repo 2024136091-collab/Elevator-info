@@ -4,7 +4,7 @@
 
 ## 발표 보기
 
-**[https://2024136091-collab.github.io/Elevator-info](https://2024136091-collab.github.io/Elevator-info)**
+**[https://2024136091-collab.github.io](https://2024136091-collab.github.io)**
 
 ## 앱 소스코드
 
