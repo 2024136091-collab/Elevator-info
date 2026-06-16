@@ -265,8 +265,8 @@ flutter analyze               # 정적 분석 (error 0건)
 | 발표자료 변환 | `npx @marp-team/marp-cli elevator.md -o index.html` |
 | 배포 | `git push` → GitHub Pages 자동 반영 |
 
-**배포 URL**: `https://2024136091-collab.github.io`
-**앱 실제 데모**: `https://2024136091-collab.github.io/app/`
+**배포 URL**: [https://2024136091-collab.github.io](https://2024136091-collab.github.io)
+**앱 실제 데모**: [https://2024136091-collab.github.io/app/](https://2024136091-collab.github.io/app/)
 
 ---
 
@@ -358,7 +358,7 @@ testWidgets('홈 화면 렌더링 테스트', (tester) async {
 4. **스마트 검색** — "오래된 승강기 찾아줘" 입력 → 결과 확인
 
 > "국승정 번호 2018-399로 검색하면 실제 휴먼시아아파트가 나옵니다"
-> 지금 바로 체험: `https://2024136091-collab.github.io/app/`
+> 지금 바로 체험: [https://2024136091-collab.github.io/app/](https://2024136091-collab.github.io/app/)
 
 ---
 
