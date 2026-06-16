@@ -6,6 +6,10 @@
 
 **[https://2024136091-collab.github.io](https://2024136091-collab.github.io)**
 
+## 앱 실제 데모
+
+**[https://2024136091-collab.github.io/app/](https://2024136091-collab.github.io/app/)**
+
 ## 앱 소스코드
 
 [https://github.com/2024136091-collab/it_dev](https://github.com/2024136091-collab/it_dev)
